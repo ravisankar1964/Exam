@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exam</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        #question-container {
+            margin-bottom: 20px;
+        }
+
+        .question-card {
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+
+        .question-card .question-number {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .question-card .code {
+            margin-bottom: 10px;
+        }
+
+        .question-card .options label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #submit-button {
+            margin-bottom: 20px;
+        }
+
+        #result {
+            margin-bottom: 20px;
+        }
+
+        #result table {
+            width: 100%;
+        }
+
+        #result table th,
+        #result table td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        #timer {
+            font-weight: bold;
+        }
+		
+		/* Add your custom CSS styles here */
+        #timer {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #ff0000;
+            padding: 10px;
+        }
+
+        /* Adjust the padding/margin of the exam container to make space for the fixed timer */
+        #examContainer {
+            margin-top: 50px;
+        }
+    </style>
+	<style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .containeru {
+             position: absolute;
+            top: 0;
+            
+            right: 0;
+            bottom:0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cardu {
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            max-width: 150px;
+            margin: 0 auto;
+        }
+
+        .card-titleu {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .username-label {
+            font-size: 14px;
+        }
+
+        .username {
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+    <div class="container">
+        <div id="question-container"></div>
+        <button id="submit-button" class="btn btn-primary">Submit</button>
+        <div id="result"></div>
+        <div id="timer">Time Left: 2m<script>
+        // Rest of your JavaScript code
+
+       
+    </script></div>
+    </div>
+    <div class="containeru">
+        <div class="cardu">
+            <h2 class="card-titleu">Welcome to the Python Examination</h2>
+            <h4>Username: <span id="username"></span></h4>
+        </div>
+    </div>
+	 <script>
+        // Get the username from the URL parameters
+        var params = new URLSearchParams(window.location.search);
+        var username = params.get('user');
+
+        // Set the username in the HTML element
+        document.getElementById('username').textContent = username;
+    </script>
+    <script>
+	  
+        var questions = [
+		    
+			{
+                question: "RAX means ------",
+                code: "",
+                options: ["Rural Automatic  Exchange", "Rural Auto exchange", "Both", "None of the above"],
+                correctAnswer: "Both"
+            },
+			{
+                question: "Python was  developed  by ",
+                code: "",
+                options: ["Guido Van Rossam", "Scott", "Kennedy", "None of the above"],
+                correctAnswer: "Guido Van Rossam"
+            },
+			{
+                question: "The features  incorporated  in Python Language ",
+                code: "",
+                options: ["Functional features & Object Oriented features", "Scripting  and  Modular  features", "Both", "None of the above"],
+                correctAnswer: "Both"
+            },
+			
+            {
+                question: "Most of syntax in Python Derived from ---language/ languages",
+                code: "",
+                options: ["C", "ABC", "Both", "None of the above"],
+                correctAnswer: "Both"
+            },
+            {
+                question: "Applications  of  Python are",
+                code: "",
+                options: ["Web &Desktop", "Data base & network", "Data Analysis  and  machine  learning", "All"],
+                correctAnswer: "All"
+            },
+            {
+                question: "Which  are the  important features of  Python",
+                code: "",
+                options: ["Simple and  easy to learn", "free ware  and  open source", "Platform independent & Embedded", "All"],
+                correctAnswer: "All"
+            },
+			{
+                question: "Flavours  of  Python",
+                code: "",
+                options: ["C python &  Jython", "IronPython&PyPy", "RubyPython&Anaconda", "All"],
+                correctAnswer: "All"
+            },
+			{
+                question: "Identifier  in  Python  means",
+                code: "",
+                options: ["Class name", "Function Name", "Module name", "All"],
+                correctAnswer: "All"
+            },
+			{
+                question: "languages that require the compilers  and  interpreters  for  translation into  machine code are---languages",
+                code: "",
+                options: ["High Level", "Low Level", "Both", "None"],
+                correctAnswer: "High Level"
+            },
+			{
+                question: "languages requires the assemblers  for  direct  translation into  machine  code  are  of ---languages",
+                code: "",
+                options: ["High Level", "Low Level", "Both", "None"],
+                correctAnswer: "Low Level"
+            },
+			{
+                question: "In Python  program  a=10  print ( type(a))  gives  the  output",
+                code: "",
+                options: ["<Class 'int'>", "<Class 'float'>", "<Class 'str '>", "None"],
+                correctAnswer: "<Class 'int'>"
+            },
+			
+			{
+                question: "In Python  program  a=10.5  print ( type(a))  gives  the  output",
+                code: "",
+                options: ["<Class 'int'>", "<Class 'float'>", "<Class 'str '>", "None"],
+                correctAnswer: "<Class 'float'>"
+            },
+			{
+                question: "In Python  program  a= \"karthi\"  print ( type(a))  gives  the  output",
+                code: "",
+                options: ["<Class 'int'>", "<Class 'float'>", "<Class 'str '>", "None"],
+                correctAnswer: "<Class 'str '>"
+            },
+			{
+                question: "In The below Code:",
+                code: "a=10 \n b=20 \n print(\"The Sum = \",a+b)",
+                options: ["30", "20", "10", "Error"],
+                correctAnswer: "30"
+            },
+			{
+                question: "which are  the  valid  identifiers  in  python",
+                code: "",
+                options: ["123total, ca$h", "total123,_abc_abc", "both incorrect", "None"],
+                correctAnswer: "total123,_abc_abc"
+            },
+			{
+                question: "IDE  means",
+                code: "",
+                options: ["Integrated Development environment", "software application  helps in devloping software code efficiently", "Both", "None"],
+                correctAnswer: "Both"
+            },
+			{
+                question: "IDLE is Python's Integrated Development and Learning Environment.",
+                code: "",
+                options: ["TRUE", "FALSE", "Some Times  True", "Some times False"],
+                correctAnswer: "TRUE"
+            },
+			{
+                question: "Which of  the  following  statements  are  true",
+                code: "",
+                options: ["Anaconda is an open-source distribution of the Python", "R programming language is for data science", "Both", "None"],
+                correctAnswer: "Both"
+            },
+			{
+                question: "In the Code Below:",
+                code: "a=10 \n b=2 \n print (a -b)  gives",
+                options: ["Type error", "8", "Value error", "None"],
+                correctAnswer: "8"
+            },
+			{
+                question: "In the Python Program",
+                code: "a=20 \n b=30 \n Print ( a*b)   gives the  result",
+                options: ["Type error", "600", "Value error", "None"],
+                correctAnswer: "600"
+            },
+			{
+                question: "In Python Program",
+                code: "a=ob10 \n Print(a)  gives  the  result ",
+                options: ["2", "8", "16", "10"],
+                correctAnswer: "8"
+            },
+			{
+                question: "The  result  of  the  program  in  python",
+                code: "a= 0x10  \n print (a) ",
+                options: ["8", "2", "16", "10"],
+                correctAnswer: "16"
+            },
+			{
+                question: "The  output of  the  program  shown below is ",
+                code: "a=15 \n bin(15) ",
+                options: ["0b1111", "0o1111", "0x1111", "none"],
+                correctAnswer: "0b1111"
+            },
+			{
+                question: "The  output of  the  program  shown below is ",
+                code: "a= 0o11 \n bin(0o11)",
+                options: ["0b1001", "0o1111", "0o1001", "none"],
+                correctAnswer: "0b1001"
+            },
+			{
+                question: "The  output of  the  program  shown below is ",
+                code: "a=0x10 \n bin(0x10)",
+                options: ["ob1111", "0b10000", "0o1001", "0o10000"],
+                correctAnswer: "0b10000"
+            },
+			{
+                question: "The  output of  the  program  shown below is ",
+                code: "a=10 \n oct(10)",
+                options: ["0o12", "0b10000", "ox12", "none"],
+                correctAnswer: "0o12"
+            },
+			{
+                question: "The  output of  the  program  shown below is ",
+                code: "a=0B1111 \n oct(0B1111)",
+                options: ["0o12", "0o17", "0o13", "none"],
+                correctAnswer: "0o17"
+            },
+			{
+                question: "The  output of  the  program  shown below is ",
+                code: "a= 0x1111 \n oct( 0X1111)",
+                options: ["0b10421", "0o10421", "oX10421", "none"],
+                correctAnswer: "0o10421"
+            },
+			{
+                question: "The  output of  the  program  shown below is ",
+                code: "a= 100 \n hex( 100)",
+                options: ["0x46", "0x64", "0o64", "0b64"],
+                correctAnswer: "0x64"
+            },
+			{
+                question: "The  output of  the  program  shown below is ",
+                code: "a= 0b11111111 \n hex(0b11111111)",
+                options: ["0off", "0xff", "obff", "none"],
+                correctAnswer: "0xff"
+            },
+			{
+                question: "The  output of  the  program  shown below is ",
+                code: "a= 0o1230 \n hex(a)",
+                options: ["0x298", "0x289", "0O298", "0b298"],
+                correctAnswer: "0x298"
+            },
+			{
+                question: "The  output of  the  program  shown below is ",
+                code: "a= 10 + 5j \n b= 9+ 7j \n c= a+b \n print (c)",
+                options: ["19+12J", "90+35J", "Value  error", "None"],
+                correctAnswer: "19+12J"
+            },
+			{
+                question: "Total  number of  reserved  words in python ",
+                code: "",
+                options: ["66", "33", "44", "None"],
+                correctAnswer: "33"
+            },
+			{
+                question: "The reserved  words starts with  capital  letter are",
+                code: "",
+                options: ["TRUE", "FALSE", "None", "ALL"],
+                correctAnswer: "ALL"
+            },
+			{
+                question: "Example  for  functional  language ",
+                code: "",
+                options: ["C", "C++", "Java", "None"],
+                correctAnswer: "C"
+            },
+			{
+                question: "Example   for  Object  Oriented  languages",
+                code: "",
+                options: ["C", "C++", "Java", "C++, Java"],
+                correctAnswer: "C++, Java"
+            },
+			{
+                question: "JIT  compiler  means",
+                code: "",
+                options: ["Just in time  compiler", "Java in time  compiler", "Java in touch  compiler", "None"],
+                correctAnswer: "Just in time  compiler"
+            },
+			{
+                question: "PVM  means",
+                code: "",
+                options: ["Parallell verification model", "Parallel virtual machine", "Platform virtual  machine", "None"],
+                correctAnswer: "Parallel virtual machine"
+            },
+			{
+                question: "A block of code which only runs when it is called --------",
+                code: "",
+                options: ["Function", "Data type", "Class", "None"],
+                correctAnswer: "Function"
+            },
+			{
+                question: "In built  functions  of  java  is/ are",
+                code: "",
+                options: ["type()", "id()", "Print()", "All"],
+                correctAnswer: "All"
+            },
+			{
+                question: "Which  statements  are  true  related  to bool  data  type ",
+                code: "",
+                options: ["To  denote  boolean  values", "allowed values are  True or False", "In python true is 1 and  false is 0", "All"],
+                correctAnswer: "All"
+            },
+			{
+                question: "[ ]  operator in  strings  is  used  for",
+                code: "",
+                options: ["slicing", "concatenation", "Repetition", "All"],
+                correctAnswer: "slicing"
+            },
+			{
+                question: "The  operator  used for  repetition of  strings is ",
+                code: "",
+                options: ["+", "*", "%", "None"],
+                correctAnswer: "*"
+            },
+			{
+                question: "The  operator  used  for  concatenation of strings",
+                code: "",
+                options: ["+", "*", "%", "None"],
+                correctAnswer: "+"
+            },
+			{
+                question: "in  byte  data  type  a group of  byte numbers  are  arranged  as",
+                code: "",
+                options: ["string", "list", "array", "None"],
+                correctAnswer: "array"
+            },
+			{
+                question: "byte  is ",
+                code: "",
+                options: ["mutable", "immutable", "Both", "None"],
+                correctAnswer: "immutable"
+            },
+			{
+                question: "bytearray is ",
+                code: "",
+                options: ["mutable", "immutable", "Both", "None"],
+                correctAnswer: "mutable"
+            },
+			{
+                question: "The  allowed  values  in  byte data type",
+                code: "",
+                options: ["0 to 128", "0 to 255", "0 to 512", "any values"],
+                correctAnswer: "0 to 255"
+            },
+			{
+                question: "bool (\" \")  returns the  value",
+                code: "",
+                options: ["TRUE", "FALSE", "string", "none"],
+                correctAnswer: "TRUE"
+            },
+			{
+                question: "What is the correct way to write a comment in Python?",
+                code: "",
+                options: ["# This is a comment", "// This is a comment", "/* This is a comment */", "<!-- This is a comment -->"],
+                correctAnswer: "# This is a comment"
+            }			
+        ];
+
+        var questionContainer = document.getElementById("question-container");
+        var submitButton = document.getElementById("submit-button");
+        var resultContainer = document.getElementById("result");
+        var timerContainer = document.getElementById("timer");
+
+        var totalMarks = questions.length;
+        var obtainedMarks = 0;
+        var chosenAnswers = [];
+        var correctAnswers = [];
+
+        var countdownTimer;
+        var minutes = 60;
+        var seconds = 00;
+
+        function generateQuestions() {
+            questionContainer.innerHTML = ""; // Clear previous questions
+
+            questions.forEach(function (question, index) {
+                var questionCard = document.createElement("div");
+                questionCard.classList.add("card", "question-card");
+
+                var questionNumber = document.createElement("div");
+                questionNumber.classList.add("question-number");
+                questionNumber.textContent = "Question " + (index + 1);
+                questionCard.appendChild(questionNumber);
+
+                var questionText = document.createElement("div");
+                questionText.innerHTML = question.question;
+                questionCard.appendChild(questionText);
+
+                if (question.code) {
+                    var codeElement = document.createElement("pre");
+                    codeElement.classList.add("code");
+                    codeElement.textContent = question.code;
+                    questionCard.appendChild(codeElement);
+                }
+
+                var optionsContainer = document.createElement("div");
+                optionsContainer.classList.add("options");
+
+                question.options.forEach(function (option) {
+                    var optionLabel = document.createElement("label");
+
+                    var radioInput = document.createElement("input");
+                    radioInput.type = "radio";
+                    radioInput.name = "question-" + index;
+                    radioInput.value = option;
+
+                    var optionText = document.createTextNode(option);
+
+                    optionLabel.appendChild(radioInput);
+                    optionLabel.appendChild(optionText);
+
+                    optionsContainer.appendChild(optionLabel);
+                });
+
+                questionCard.appendChild(optionsContainer);
+
+                questionContainer.appendChild(questionCard);
+            });
+        }
+
+        function startTimer() {
+            timerContainer.textContent = "Time Remaining: " + formatTime(minutes) + ":" + formatTime(seconds);
+
+            countdownTimer = setInterval(function () {
+                if (seconds === 0) {
+                    if (minutes === 0) {
+                        stopTimer();
+                        submitExam();
+                        return;
+                    }
+                    minutes--;
+                    seconds = 59;
+                } else {
+                    seconds--;
+                }
+
+                timerContainer.textContent = "Time Remaining: " + formatTime(minutes) + ":" + formatTime(seconds);
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(countdownTimer);
+            timerContainer.textContent = "";
+        }
+
+        function formatTime(time) {
+            return time < 10 ? "0" + time : time;
+        }
+
+        function submitExam() {
+            var radios = document.querySelectorAll("input[type='radio']:checked");
+
+            radios.forEach(function (radio, index) {
+                chosenAnswers[index] = radio.value;
+                correctAnswers[index] = questions[index].correctAnswer;
+                if (chosenAnswers[index] === correctAnswers[index]) {
+                    obtainedMarks++;
+                }
+            });
+
+            generateResult();
+            stopTimer();
+
+            // Hide questions and submit button after submission
+            questionContainer.style.display = "none";
+            submitButton.style.display = "none";
+        }
+
+        function generateResult() {
+            resultContainer.innerHTML = "";
+
+            var resultTable = document.createElement("table");
+            resultTable.classList.add("table");
+
+            var resultTableHead = document.createElement("thead");
+            var resultTableHeadRow = document.createElement("tr");
+
+            var resultTableHeadQuestion = document.createElement("th");
+            resultTableHeadQuestion.textContent = "Question";
+
+            var resultTableHeadCode = document.createElement("th");
+            resultTableHeadCode.textContent = "Code";
+
+            var resultTableHeadChosenAnswer = document.createElement("th");
+            resultTableHeadChosenAnswer.textContent = "Chosen Answer";
+
+            var resultTableHeadCorrectAnswer = document.createElement("th");
+            resultTableHeadCorrectAnswer.textContent = "Correct Answer";
+
+            resultTableHeadRow.appendChild(resultTableHeadQuestion);
+            resultTableHeadRow.appendChild(resultTableHeadCode);
+            resultTableHeadRow.appendChild(resultTableHeadChosenAnswer);
+            resultTableHeadRow.appendChild(resultTableHeadCorrectAnswer);
+
+            resultTableHead.appendChild(resultTableHeadRow);
+            resultTable.appendChild(resultTableHead);
+
+            var resultTableBody = document.createElement("tbody");
+
+            questions.forEach(function (question, index) {
+                var resultTableRow = document.createElement("tr");
+
+                var resultTableQuestion = document.createElement("td");
+                resultTableQuestion.textContent = question.question;
+
+                var resultTableCode = document.createElement("td");
+                resultTableCode.textContent = question.code;
+
+                var resultTableChosenAnswer = document.createElement("td");
+                resultTableChosenAnswer.textContent = chosenAnswers[index] || "Not Attempted";
+
+                var resultTableCorrectAnswer = document.createElement("td");
+                resultTableCorrectAnswer.textContent = correctAnswers[index] || "Not Available";
+
+                resultTableRow.appendChild(resultTableQuestion);
+                resultTableRow.appendChild(resultTableCode);
+                resultTableRow.appendChild(resultTableChosenAnswer);
+                resultTableRow.appendChild(resultTableCorrectAnswer);
+
+                resultTableBody.appendChild(resultTableRow);
+            });
+
+            resultTable.appendChild(resultTableBody);
+            resultContainer.appendChild(resultTable);
+
+            var resultSummary = document.createElement("p");
+            resultSummary.innerHTML = "<h2><font color='red'><b>Total Questions: " + totalMarks + "<br>Obtained Marks: " + obtainedMarks + "/" + totalMarks + "</b></font></h2>";
+            resultContainer.appendChild(resultSummary);
+        }
+
+        generateQuestions();
+        startTimer();
+
+        submitButton.addEventListener("click", function () {
+            submitExam();
+        });
+		
+		
+    
+		 
+    </script>
+	<script>
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+		document.addEventListener('keydown', function(e) {
+    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+        e.preventDefault();
+    }
+});
+    </script>
+	
+</body>
+</html>
